@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+  color-scheme: light;
+  --yac-red: #D91F2B;
+  --yac-red-dark: #B81724;
+  --yac-red-deep: #8F1019;
+  --yac-dark: #101522;
+  --yac-dark-card: #181E2E;
+  --yac-soft: #FFF7F7;
+  --yac-border: #F0D5D7;
+  --yac-gold: #C89B3C;
+}
+
+/* YAC Core Brand Utilities */
+.bg-yac-red { background-color: #D91F2B; }
+.hover\:bg-yac-redDark:hover { background-color: #B81724; }
+.bg-yac-redDeep { background-color: #8F1019; }
+.bg-yac-dark { background-color: #101522; }
+.bg-yac-darkCard { background-color: #181E2E; }
+.bg-yac-soft { background-color: #FFF7F7; }
+.text-yac-red { color: #D91F2B; }
+.text-yac-dark { color: #101522; }
+.text-yac-gold { color: #C89B3C; }
+.border-yac-border { border-color: #F0D5D7; }
+.border-yac-red { border-color: #D91F2B; }
+.from-yac-dark { --tw-gradient-from: #101522 var(--tw-gradient-from-position); --tw-gradient-to: rgb(16 21 34 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+.to-yac-dark { --tw-gradient-to: #101522 var(--tw-gradient-to-position); }
+.from-yac-redDeep { --tw-gradient-from: #8F1019 var(--tw-gradient-from-position); --tw-gradient-to: rgb(143 16 25 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+.to-yac-redDark { --tw-gradient-to: #B81724 var(--tw-gradient-to-position); }
+.via-yac-red { --tw-gradient-to: rgb(217 31 43 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), #D91F2B var(--tw-gradient-via-position), var(--tw-gradient-to); }
+
+body {
+  background-color: #ffffff;
+  color: #101522;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: 'Outfit', 'Inter', sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Print layout for digital ticket */
+@media print {
+  body {
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .ticket-card {
+    box-shadow: none !important;
+    border: 1px solid #e2e8f0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    page-break-inside: avoid;
+  }
+}

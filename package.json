@@ -1,0 +1,20 @@
+{
+  "name": "rankers-meet-2026",
+  "version": "1.0.0",
+  "description": "Rankers Meet 2026 digital registration, QR ticketing, and check-in system for Yasir Ali Classes",
+  "scripts": {
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "start:server": "cd server && npm start",
+    "build:client": "cd client && npm run build",
+    "seed": "cd server && npm run seed"
+  },
+  "keywords": [
+    "rankers-meet",
+    "yasir-ali-classes",
+    "qr-attendance",
+    "check-in"
+  ],
+  "author": "Yasir Ali Classes",
+  "license": "ISC"
+}

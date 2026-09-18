@@ -6,7 +6,7 @@ import confetti from 'canvas-confetti';
 import api from '../api/client';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { registrationFormSchema } from '../schemas/registrationSchema';
+import { registrationFormSchema, COURSE_EXAM_OPTIONS } from '../schemas/registrationSchema';
 import {
   User,
   GraduationCap,
@@ -51,6 +51,8 @@ export default function RegisterPage() {
     handleSubmit,
     trigger,
     getValues,
+    setValue,
+    watch,
     formState: { errors, touchedFields },
   } = useForm({
     resolver: zodResolver(registrationFormSchema),
@@ -60,14 +62,16 @@ export default function RegisterPage() {
       parentName: '',
       mobileNumber: '',
       email: '',
-      classCourse: 'Class 12th Commerce',
-      exam: 'CA Foundation (ICAI)',
+      classCourse: '11th Entrance (Science / Commerce / Diploma)',
+      exam: '11th Entrance (Science / Commerce / Diploma)',
       rank: '',
       schoolCollege: '',
       numberOfGuests: 1,
       additionalInfo: '',
     },
   });
+
+  const watchRank = watch('rank');
 
   const steps = [
     { number: 1, title: 'Personal Details', shortTitle: 'Personal', icon: User },
@@ -82,7 +86,7 @@ export default function RegisterPage() {
       return await trigger(['studentName', 'parentName', 'mobileNumber', 'email']);
     }
     if (step === 2) {
-      return await trigger(['classCourse', 'exam', 'rank', 'schoolCollege']);
+      return await trigger(['classCourse', 'rank', 'schoolCollege']);
     }
     if (step === 3) {
       return await trigger(['numberOfGuests', 'additionalInfo']);
@@ -118,7 +122,11 @@ export default function RegisterPage() {
     setServerError('');
 
     try {
-      const res = await api.post('/registrations', data);
+      const submissionData = {
+        ...data,
+        exam: data.classCourse,
+      };
+      const res = await api.post('/registrations', submissionData);
       if (res.data?.success) {
         try {
           confetti({
@@ -426,11 +434,11 @@ export default function RegisterPage() {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* Class / Course */}
+                <div className="space-y-4">
+                  {/* Merged Course & Entrance Exam */}
                   <div>
                     <label htmlFor="classCourse" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                      Class / Course <span className="text-rose-500" aria-hidden="true">*</span>
+                      Course / Entrance Exam <span className="text-rose-500" aria-hidden="true">*</span>
                     </label>
                     <select
                       id="classCourse"
@@ -438,18 +446,14 @@ export default function RegisterPage() {
                       className={`w-full px-4 py-3 rounded-xl border text-base sm:text-sm bg-white transition-colors focus:outline-none focus:ring-2 ${
                         errors.classCourse
                           ? 'border-rose-300 focus:ring-rose-500'
-                          : 'border-slate-300 focus:ring-blue-600'
+                          : 'border-slate-300 focus:ring-[#D91F2B]'
                       }`}
                     >
-                      <option value="Class 12th Commerce">Class 12th Commerce</option>
-                      <option value="Class 11th Commerce">Class 11th Commerce</option>
-                      <option value="CA Foundation">CA Foundation</option>
-                      <option value="CMA Foundation / CSEET">CMA Foundation / CSEET</option>
-                      <option value="B.Com (Hons / General)">B.Com (Hons / General)</option>
-                      <option value="CUET UG (Commerce)">CUET UG (Commerce)</option>
-                      <option value="CUET PG / MBA / M.Com">CUET PG / MBA / M.Com</option>
-                      <option value="Junior Wing (Class 9-10 Commerce Foundation)">Junior Wing (Class 9-10 Commerce Foundation)</option>
-                      <option value="Other Commerce Course">Other Commerce Course</option>
+                      {COURSE_EXAM_OPTIONS.map((opt) => (
+                        <option key={opt} value={opt}>
+                          {opt}
+                        </option>
+                      ))}
                     </select>
                     {errors.classCourse && (
                       <p className="text-xs text-rose-600 mt-1.5 font-medium flex items-center gap-1">
@@ -459,62 +463,72 @@ export default function RegisterPage() {
                     )}
                   </div>
 
-                  {/* Exam Category */}
+                  {/* Rank / Result Status with Quick Options */}
                   <div>
-                    <label htmlFor="exam" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                      Exam Category <span className="text-rose-500" aria-hidden="true">*</span>
-                    </label>
-                    <select
-                      id="exam"
-                      {...register('exam')}
-                      className={`w-full px-4 py-3 rounded-xl border text-base sm:text-sm bg-white transition-colors focus:outline-none focus:ring-2 ${
-                        errors.exam
-                          ? 'border-rose-300 focus:ring-rose-500'
-                          : 'border-slate-300 focus:ring-blue-600'
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label htmlFor="rank" className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                        Rank / Result Status <span className="text-rose-500" aria-hidden="true">*</span>
+                      </label>
+                      <span className="text-[11px] text-slate-400 font-medium">Write rank or choose option</span>
+                    </div>
+                    <input
+                      id="rank"
+                      type="text"
+                      {...register('rank')}
+                      placeholder="e.g. Rank 1, General 15, or Selected"
+                      aria-invalid={errors.rank ? 'true' : 'false'}
+                      className={`w-full px-4 py-3 rounded-xl border text-base sm:text-sm transition-colors focus:outline-none focus:ring-2 ${
+                        errors.rank
+                          ? 'border-rose-300 focus:ring-rose-500 bg-rose-50/20'
+                          : 'border-slate-300 focus:ring-[#D91F2B]'
                       }`}
-                    >
-                      <option value="CA Foundation (ICAI)">CA Foundation (ICAI)</option>
-                      <option value="Class 12th Board (CBSE / ISC / State)">Class 12th Board (CBSE / ISC / State)</option>
-                      <option value="Class 11th Board / Entrance">Class 11th Board / Entrance</option>
-                      <option value="AMU Entrance (B.Com / BBA / MBA / 11th Commerce)">AMU Entrance (B.Com / BBA / MBA / 11th Commerce)</option>
-                      <option value="CUET UG (Commerce / Accounts / Economics)">CUET UG (Commerce / Accounts / Economics)</option>
-                      <option value="CUET PG / MBA Entrance">CUET PG / MBA Entrance</option>
-                      <option value="CMA / CS Foundation">CMA / CS Foundation</option>
-                      <option value="JMI Entrance (Commerce / Management)">JMI Entrance (Commerce / Management)</option>
-                      <option value="Other Commerce Exam">Other Commerce Exam</option>
-                    </select>
-                    {errors.exam && (
+                    />
+
+                    {/* Quick Selection Pills */}
+                    <div className="flex flex-wrap items-center gap-2 mt-2.5">
+                      <span className="text-[11px] font-semibold text-slate-500">Quick selection:</span>
+                      <button
+                        type="button"
+                        onClick={() => setValue('rank', 'Selected', { shouldValidate: true, shouldDirty: true })}
+                        className={`px-3 py-1 rounded-lg text-xs font-bold transition-all border ${
+                          watchRank === 'Selected'
+                            ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs'
+                            : 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100'
+                        }`}
+                      >
+                        ✓ Selected / Qualified
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setValue('rank', 'Waiting List Cleared', { shouldValidate: true, shouldDirty: true })}
+                        className={`px-3 py-1 rounded-lg text-xs font-bold transition-all border ${
+                          watchRank === 'Waiting List Cleared'
+                            ? 'bg-amber-500 text-white border-amber-500 shadow-xs'
+                            : 'bg-amber-50 text-amber-800 border-amber-200 hover:bg-amber-100'
+                        }`}
+                      >
+                        Waiting List Cleared
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setValue('rank', 'Top 10 Ranker', { shouldValidate: true, shouldDirty: true })}
+                        className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all border ${
+                          watchRank === 'Top 10 Ranker'
+                            ? 'bg-[#D91F2B] text-white border-[#D91F2B]'
+                            : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                        }`}
+                      >
+                        Top 10 Ranker
+                      </button>
+                    </div>
+
+                    {errors.rank && (
                       <p className="text-xs text-rose-600 mt-1.5 font-medium flex items-center gap-1">
                         <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
-                        {errors.exam.message}
+                        {errors.rank.message}
                       </p>
                     )}
                   </div>
-                </div>
-
-                {/* Rank */}
-                <div>
-                  <label htmlFor="rank" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                    Rank / Percentile / Score <span className="text-rose-500" aria-hidden="true">*</span>
-                  </label>
-                  <input
-                    id="rank"
-                    type="text"
-                    {...register('rank')}
-                    placeholder="e.g. AIR 142, or 99.4%ile, or 96.8% in CBSE"
-                    aria-invalid={errors.rank ? 'true' : 'false'}
-                    className={`w-full px-4 py-3 rounded-xl border text-base sm:text-sm transition-colors focus:outline-none focus:ring-2 ${
-                      errors.rank
-                        ? 'border-rose-300 focus:ring-rose-500 bg-rose-50/20'
-                        : 'border-slate-300 focus:ring-blue-600'
-                    }`}
-                  />
-                  {errors.rank && (
-                    <p className="text-xs text-rose-600 mt-1.5 font-medium flex items-center gap-1">
-                      <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
-                      {errors.rank.message}
-                    </p>
-                  )}
                 </div>
 
                 {/* School / College */}
@@ -620,12 +634,12 @@ export default function RegisterPage() {
                     <span className="font-bold text-slate-900 text-right break-all">{values.email}</span>
                   </div>
                   <div className="flex justify-between py-1 border-b border-slate-200/80">
-                    <span className="text-slate-500 font-medium">Class / Course</span>
+                    <span className="text-slate-500 font-medium">Course / Entrance Exam</span>
                     <span className="font-bold text-slate-900 text-right">{values.classCourse}</span>
                   </div>
                   <div className="flex justify-between py-1 border-b border-slate-200/80">
-                    <span className="text-slate-500 font-medium">Exam & Rank</span>
-                    <span className="font-bold text-[#D91F2B] text-right">{values.exam} &bull; {values.rank}</span>
+                    <span className="text-slate-500 font-medium">Rank / Status</span>
+                    <span className="font-bold text-[#D91F2B] text-right">{values.rank}</span>
                   </div>
                   <div className="flex justify-between py-1 border-b border-slate-200/80">
                     <span className="text-slate-500 font-medium">School / College</span>

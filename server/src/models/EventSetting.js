@@ -8,7 +8,7 @@ const eventSettingSchema = new mongoose.Schema(
     },
     date: {
       type: String,
-      default: 'Saturday, October 3, 2026',
+      default: 'Sunday, October 4, 2026',
     },
     time: {
       type: String,
@@ -16,11 +16,11 @@ const eventSettingSchema = new mongoose.Schema(
     },
     venue: {
       type: String,
-      default: 'Grand Auditorium, Aligarh Cultural Complex',
+      default: 'Royal Fort, Aligarh',
     },
     description: {
       type: String,
-      default: 'Celebrating Commerce Achievers, CA Foundation, CUET & Entrance Rankers of Yasir Ali Classes',
+      default: 'Celebrating Achievers, CA Foundation, CUET & Entrance Rankers of Yasir Ali Classes',
     },
     registrationOpen: {
       type: Boolean,
@@ -28,7 +28,7 @@ const eventSettingSchema = new mongoose.Schema(
     },
     registrationClose: {
       type: String,
-      default: 'Friday, October 2, 2026, 11:59 PM IST',
+      default: 'Saturday, October 3, 2026, 11:59 PM IST',
     },
     maxRegistrations: {
       type: Number,
@@ -38,7 +38,7 @@ const eventSettingSchema = new mongoose.Schema(
     // Extended event presentation fields
     tagline: {
       type: String,
-      default: 'Honoring The Commerce Champions of Yasir Ali Classes',
+      default: 'Honoring The Champions of Yasir Ali Classes',
     },
     organization: {
       type: String,
@@ -46,7 +46,7 @@ const eventSettingSchema = new mongoose.Schema(
     },
     eventDate: {
       type: String,
-      default: 'Saturday, October 3, 2026',
+      default: 'Sunday, October 4, 2026',
     },
     eventTime: {
       type: String,
@@ -54,11 +54,11 @@ const eventSettingSchema = new mongoose.Schema(
     },
     address: {
       type: String,
-      default: 'Grand Bazaar, 1st Floor, Lal Diggi Road, Aligarh, UP 202002',
+      default: 'Royal Fort, Near Exhibition Ground, GT Road, Aligarh, UP 202001',
     },
     mapUrl: {
       type: String,
-      default: 'https://maps.google.com/?q=Aligarh+Uttar+Pradesh',
+      default: 'https://maps.google.com/?q=Royal+Fort+Aligarh',
     },
     isRegistrationOpen: {
       type: Boolean,

@@ -33,24 +33,24 @@ export async function runSeed() {
     // 2. Seed / Update Event Settings
     const eventData = {
       eventName: 'Rankers Meet 2026',
-      date: 'Saturday, October 3, 2026',
+      date: 'Sunday, October 4, 2026',
       time: '10:00 AM - 02:00 PM IST',
-      venue: 'Grand Auditorium, Aligarh Cultural Complex',
-      description: 'Celebrating Commerce Achievers, CA Foundation, CUET & Entrance Rankers of Yasir Ali Classes',
+      venue: 'Royal Fort, Aligarh',
+      description: 'Celebrating Achievers, CA Foundation, CUET & Entrance Rankers of Yasir Ali Classes',
       registrationOpen: true,
-      registrationClose: 'Friday, October 2, 2026, 11:59 PM IST',
+      registrationClose: 'Saturday, October 3, 2026, 11:59 PM IST',
       maxRegistrations: 1200,
 
       // Compatibility fields
-      tagline: 'Honoring The Commerce Champions of Yasir Ali Classes',
+      tagline: 'Honoring The Champions of Yasir Ali Classes',
       organization: 'Yasir Ali Classes',
-      eventDate: 'Saturday, October 3, 2026',
+      eventDate: 'Sunday, October 4, 2026',
       eventTime: '10:00 AM - 02:00 PM IST',
-      address: 'Grand Bazaar, 1st Floor, Lal Diggi Road, Aligarh, UP 202002',
-      mapUrl: 'https://maps.google.com/?q=Aligarh+Uttar+Pradesh',
+      address: 'Royal Fort, Near Exhibition Ground, GT Road, Aligarh, UP 202001',
+      mapUrl: 'https://maps.google.com/?q=Royal+Fort+Aligarh',
       isRegistrationOpen: true,
       maxCapacity: 1200,
-      announcement: 'Welcome all commerce rankers, CA qualifiers, and proud parents! Please bring your digital QR ticket for swift entrance.',
+      announcement: 'Welcome all rankers, qualifiers, and proud parents! Please bring your digital QR ticket for swift entrance.',
       contactPhone: '+91 90454 17079',
       contactEmail: 'admissions@yasiraliclasses.in',
     };

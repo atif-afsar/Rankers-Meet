@@ -12,13 +12,13 @@ export const EVENT_DATA = {
   subtitle: 'A grand celebration recognizing the relentless dedication, outstanding ranks, and triumphs of our commerce achievers.',
   
   // Date & Logistics
-  dateString: 'Saturday, October 3, 2026',
+  dateString: 'Sunday, October 4, 2026',
   timeString: '10:00 AM - 02:00 PM IST',
-  eventDateTimestamp: new Date('2026-10-03T10:00:00+05:30').getTime(),
-  venueName: 'Grand Auditorium, Aligarh Cultural Complex',
-  venueAddress: 'Grand Bazaar, 1st Floor, Lal Diggi Road, Aligarh, Uttar Pradesh 202002',
-  mapUrl: 'https://maps.google.com/?q=Yasir+Ali+Classes+Lal+Diggi+Road+Aligarh',
-  registrationDeadline: 'Friday, October 2, 2026, 11:59 PM IST',
+  eventDateTimestamp: new Date('2026-10-04T10:00:00+05:30').getTime(),
+  venueName: 'Royal Fort, Aligarh',
+  venueAddress: 'Royal Fort, Near Exhibition Ground, GT Road, Aligarh, Uttar Pradesh 202001',
+  mapUrl: 'https://maps.google.com/?q=Royal+Fort+Aligarh',
+  registrationDeadline: 'Saturday, October 3, 2026, 11:59 PM IST',
   
   // Contact info
   helplinePhone: '+91 90454 17079',
@@ -36,34 +36,34 @@ export const EVENT_DATA = {
   // Interactive Schedule Timeline (Section 15)
   schedule: [
     {
-      time: '10:00 AM',
+      step: 'Ceremony 01',
       title: 'Arrival & Red Carpet Welcome',
       desc: 'Attendee entry, digital QR code badge verification, and welcome drinks.',
-      badge: 'Registration Desk',
+      badge: 'Welcome Desk',
     },
     {
-      time: '10:30 AM',
+      step: 'Ceremony 02',
       title: 'Inaugural Address & Lamp Lighting',
       desc: 'Welcome remarks by Yasir Ali Sir, chief guests, and faculty mentors.',
-      badge: 'Auditorium Main Stage',
+      badge: 'Main Stage',
     },
     {
-      time: '11:00 AM',
+      step: 'Ceremony 03',
       title: 'Grand Rankers Felicitation Ceremony',
       desc: 'Trophy presentations, medals, and certificates of distinction for qualifying rankers.',
       badge: 'Felicitation Session',
     },
     {
-      time: '12:00 PM',
+      step: 'Ceremony 04',
       title: 'Mentorship & Career Roadmap Session',
-      desc: 'One-on-one career counseling for CA Intermediate, B.Com, MBA, and DU college choices.',
+      desc: 'One-on-one career counseling for higher studies, college choices, and professional guidance.',
       badge: 'Career Masterclass',
     },
     {
-      time: '01:00 PM',
+      step: 'Ceremony 05',
       title: 'Parent Pride Gathering & VIP Banquet',
       desc: 'Honoring proud parents on stage followed by a grand celebratory lunch buffet.',
-      badge: 'Lunch Banquet',
+      badge: 'Celebration Banquet',
     },
   ],
 

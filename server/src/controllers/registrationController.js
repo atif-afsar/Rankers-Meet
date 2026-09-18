@@ -18,8 +18,8 @@ const registrationSchema = z.object({
   mobileNumber: z.string().optional(),
   email: z.string().email('email must be a valid email address'),
   classCourse: z.string().min(1, 'classCourse is required'),
-  exam: z.string().min(1, 'exam is required'),
-  rank: z.union([z.string(), z.number()]).optional().default('Unranked'),
+  exam: z.string().optional(),
+  rank: z.union([z.string(), z.number()]).optional().default('Selected'),
   schoolCollege: z.string().min(2, 'schoolCollege is required'),
   guestCount: z.coerce.number().int().min(0).max(1).optional(),
   numberOfGuests: z.coerce.number().int().min(0).max(1).optional(),
@@ -50,7 +50,8 @@ export async function createRegistration(req, res, next) {
       mobileNumber: normalizedMobile,
       guestCount: normalizedGuests,
       numberOfGuests: normalizedGuests,
-      rank: String(payload.rank),
+      exam: payload.exam || payload.classCourse,
+      rank: String(payload.rank || 'Selected'),
     };
 
     const result = await createNewRegistration(registrationData);

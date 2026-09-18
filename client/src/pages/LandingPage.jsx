@@ -194,7 +194,7 @@ export default function LandingPage() {
               Ceremony <span className="font-serif italic font-normal text-[#D91F2B]">Timeline</span>
             </h2>
             <p className="text-sm text-slate-600 mt-2">
-              A structured, high-energy 4-hour program designed to celebrate students, honor families, and chart future career milestones.
+              A structured, celebratory program designed to honor student rankers, families, and chart future academic milestones.
             </p>
           </div>
 
@@ -478,8 +478,8 @@ export default function LandingPage() {
         venueAddress={address}
         dateString={eventDate}
         timeString={eventTime}
-        mapUrl={EVENT_DATA.mapUrl}
-        helplinePhone={EVENT_DATA.helplinePhone}
+        mapUrl={settings?.mapUrl || EVENT_DATA.mapUrl}
+        helplinePhone={settings?.contactPhone || EVENT_DATA.helplinePhone}
       />
 
       {/* 12. FAQ ACCORDION */}

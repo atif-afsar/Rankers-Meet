@@ -1,5 +1,14 @@
 import * as z from 'zod';
 
+export const COURSE_EXAM_OPTIONS = [
+  '6th Entrance',
+  '11th Entrance (Science / Commerce / Diploma)',
+  'B.Com / BBA',
+  'BA / BA Foreign Languages / BALLB',
+  'MBA',
+  'Other Course / Entrance',
+];
+
 export const registrationFormSchema = z.object({
   studentName: z
     .string()
@@ -24,15 +33,15 @@ export const registrationFormSchema = z.object({
   classCourse: z
     .string()
     .trim()
-    .min(1, 'Class/Course is required.'),
+    .min(1, 'Course / Entrance Exam is required.'),
   exam: z
     .string()
-    .trim()
-    .min(1, 'Exam is required.'),
+    .optional()
+    .default(''),
   rank: z
     .string()
     .trim()
-    .min(1, 'Rank is required.'),
+    .min(1, 'Rank or Selection Status is required.'),
   schoolCollege: z
     .string()
     .trim()

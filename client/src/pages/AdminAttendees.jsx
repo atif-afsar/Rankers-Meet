@@ -279,23 +279,20 @@ export default function AdminAttendees() {
             </select>
           </div>
 
-          {/* Filter: Class */}
+          {/* Filter: Course / Entrance */}
           <div className="sm:col-span-2">
             <select
               value={classFilter}
               onChange={(e) => setClassFilter(e.target.value)}
               className="w-full px-3 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm bg-white font-medium text-slate-700"
             >
-              <option value="all">All Courses</option>
-              <option value="Class 12th Commerce">Class 12th Commerce</option>
-              <option value="Class 11th Commerce">Class 11th Commerce</option>
-              <option value="CA Foundation">CA Foundation</option>
-              <option value="CMA Foundation / CSEET">CMA / CSEET</option>
-              <option value="B.Com (Hons / General)">B.Com</option>
-              <option value="CUET UG (Commerce)">CUET UG</option>
-              <option value="CUET PG / MBA / M.Com">CUET PG / MBA</option>
-              <option value="Junior Wing (Class 9-10 Commerce Foundation)">Junior Wing (Class 9-10)</option>
-              <option value="Other Commerce Course">Other</option>
+              <option value="all">All Courses / Entrances</option>
+              <option value="6th Entrance">6th Entrance</option>
+              <option value="11th Entrance (Science / Commerce / Diploma)">11th Entrance (Sci/Comm/Dip)</option>
+              <option value="B.Com / BBA">B.Com / BBA</option>
+              <option value="BA / BA Foreign Languages / BALLB">BA / BA FL / BALLB</option>
+              <option value="MBA">MBA</option>
+              <option value="Other Course / Entrance">Other</option>
             </select>
           </div>
 

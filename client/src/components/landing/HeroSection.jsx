@@ -163,12 +163,15 @@ export default function HeroSection({
               <span>{eventDate}</span>
             </div>
 
-            <span className="text-slate-300 select-none hidden sm:inline">│</span>
-
-            <div className="inline-flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5 text-[#D91F2B] flex-shrink-0" />
-              <span>{eventTime}</span>
-            </div>
+            {eventTime ? (
+              <>
+                <span className="text-slate-300 select-none hidden sm:inline">│</span>
+                <div className="inline-flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5 text-[#D91F2B] flex-shrink-0" />
+                  <span>{eventTime}</span>
+                </div>
+              </>
+            ) : null}
 
             <span className="text-slate-300 select-none hidden sm:inline">│</span>
 

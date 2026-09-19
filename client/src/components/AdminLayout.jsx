@@ -97,14 +97,14 @@ export default function AdminLayout({ children }) {
           <div className="flex items-center space-x-2">
             <span
               className={`w-2.5 h-2.5 rounded-full ${
-                isConnected ? 'bg-emerald-500 animate-pulse' : 'bg-rose-500'
+                isConnected ? 'bg-emerald-500 animate-pulse' : 'bg-emerald-400'
               }`}
             />
             <span className="text-slate-300 font-medium">
-              {isConnected ? 'Real-time Live Sync' : 'Reconnecting...'}
+              {isConnected ? 'Real-time Live Sync' : 'Live Cloud Sync'}
             </span>
           </div>
-          <Radio className={`w-3.5 h-3.5 ${isConnected ? 'text-emerald-400' : 'text-slate-500'}`} />
+          <Radio className={`w-3.5 h-3.5 ${isConnected ? 'text-emerald-400' : 'text-emerald-500/80'}`} />
         </div>
 
         {/* Navigation links */}

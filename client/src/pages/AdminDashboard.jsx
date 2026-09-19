@@ -89,6 +89,9 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     fetchStats();
+    // Auto-sync stats every 15 seconds so dashboard stays updated continuously
+    const interval = setInterval(fetchStats, 15000);
+    return () => clearInterval(interval);
   }, []);
 
   // Listen for real-time check-in and registration events via Socket.IO

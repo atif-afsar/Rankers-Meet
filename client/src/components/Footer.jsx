@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom';
 import { Award, ExternalLink, MapPin, Phone, Mail, ShieldCheck } from 'lucide-react';
 import { EVENT_DATA } from '../data/eventData';
 
-export default function Footer() {
+export default function Footer({
+  eventName = 'Rankers Meet 2026',
+  organization = 'Yasir Ali Classes',
+}) {
   return (
     <footer className="bg-[#101522] text-slate-400 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
@@ -12,14 +15,14 @@ export default function Footer() {
           <div className="space-y-4">
             <div className="flex items-center space-x-3">
               <div className="w-11 h-11 rounded-2xl bg-white flex items-center justify-center p-1 border border-slate-700 shadow-md overflow-hidden">
-                <img src="/images/yac-logo.png" alt="Yasir Ali Classes" className="w-full h-full object-contain" />
+                <img src="/images/yac-logo.png" alt={organization} className="w-full h-full object-contain" />
               </div>
               <div>
                 <span className="text-[10px] font-black uppercase tracking-widest text-[#D91F2B] block">
                   Commerce Leaders
                 </span>
                 <span className="font-heading font-black text-lg text-white">
-                  Yasir Ali Classes
+                  {organization}
                 </span>
               </div>
             </div>
@@ -41,7 +44,7 @@ export default function Footer() {
           {/* Col 2: Event Quick Details */}
           <div>
             <h4 className="text-white font-black text-xs tracking-widest uppercase mb-4">
-              Rankers Meet 2026
+              {eventName}
             </h4>
             <ul className="space-y-2.5 text-xs text-slate-400">
               <li>• Annual Grand Felicitation Ceremony</li>

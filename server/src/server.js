@@ -57,23 +57,42 @@ const authLimiter = rateLimit({
 });
 app.use('/api/auth/login', authLimiter);
 
-// 3. Security: Restricted CORS
+// 3. Security: Dynamic CORS configuration (supports localhost, custom domains, and Vercel)
+const configuredOrigins = (process.env.CLIENT_URL || '')
+  .split(',')
+  .map((u) => u.trim())
+  .filter(Boolean);
+
 const allowedOrigins = [
-  CLIENT_URL,
+  ...configuredOrigins,
   'http://localhost:5173',
   'http://127.0.0.1:5173',
-].filter(Boolean);
+  'http://localhost:3000',
+  'http://localhost:5000',
+];
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps, curl, or server tests)
+      // Allow requests with no origin (like curl, Postman, mobile apps, or same-origin)
       if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1) {
-        if (process.env.NODE_ENV === 'production') {
-          return callback(new Error('CORS request blocked by security policy'), false);
-        }
+
+      // Explicit match in allowed list
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
       }
+
+      // Allow all Vercel deployments (*.vercel.app)
+      if (/^https:\/\/[a-zA-Z0-9-_.]+\.vercel\.app$/.test(origin)) {
+        return callback(null, true);
+      }
+
+      if (process.env.NODE_ENV === 'production') {
+        console.warn(`[CORS Blocked] Origin not allowed: ${origin}`);
+        return callback(new Error(`CORS request from origin ${origin} blocked by security policy`), false);
+      }
+
+      // In development, allow all origins for smooth testing
       return callback(null, true);
     },
     credentials: true,

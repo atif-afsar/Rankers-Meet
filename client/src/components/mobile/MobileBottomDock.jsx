@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Ticket, ArrowRight } from 'lucide-react';
 
-export default function MobileBottomDock({ isRegistrationOpen = true }) {
+export default function MobileBottomDock({
+  isRegistrationOpen = true,
+  eventName = 'Rankers Meet 2026',
+}) {
   const [visible, setVisible] = useState(false);
   const location = useLocation();
 
@@ -49,7 +52,7 @@ export default function MobileBottomDock({ isRegistrationOpen = true }) {
       <div className="max-w-md mx-auto flex items-center justify-between gap-3">
         <div className="flex flex-col">
           <span className="text-[10px] font-black uppercase tracking-wider text-[#D91F2B]">
-            Rankers Meet 2026
+            {eventName}
           </span>
           <span className="text-xs font-bold text-[#101522]">
             Free Entry &bull; 1 Parent Included

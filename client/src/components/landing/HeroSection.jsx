@@ -4,6 +4,9 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight, PlayCircle, Calendar, MapPin } from 'lucide-react';
 
 export default function HeroSection({
+  eventName = 'Rankers Meet 2026',
+  organization = 'Yasir Ali Classes',
+  tagline = 'Honoring the students who turned dedication, discipline, and academic excellence into historic achievement. Claim your invite to the stage.',
   eventDate = 'Sunday, October 4, 2026',
   eventTime = '',
   venue = 'Royal Fort, Aligarh',
@@ -75,23 +78,23 @@ export default function HeroSection({
           animate="visible"
           className="flex flex-col items-center"
         >
-          {/* Main Display Headline (Clean 2-line layout with thin, elegant typography matching Aura reference) */}
+          {/* Main Display Headline */}
           <motion.h1
             variants={itemVariants}
             className="font-heading font-medium text-[#101522] tracking-tight leading-[1.12] sm:leading-[1.1] text-[clamp(2.4rem,5.8vw,4.2rem)] max-w-4xl"
           >
-            Rankers Meet 2026 <br />
+            {eventName} <br />
             <span className="inline-block mt-1 sm:mt-1.5">
               For <span className="text-[#D91F2B]">Academic Champions.</span>
             </span>
           </motion.h1>
 
-          {/* Subtitle description (2 lines, clean gray, matching reference) */}
+          {/* Subtitle description */}
           <motion.p
             variants={itemVariants}
             className="mt-4 sm:mt-5 text-sm sm:text-base lg:text-lg text-slate-500 max-w-xl mx-auto leading-relaxed font-normal"
           >
-            Honoring the students who turned dedication, discipline, and academic excellence into historic achievement. Claim your invite to the stage.
+            {tagline}
           </motion.p>
 
           {/* Dual Action Buttons (Black Primary ↗ and White Secondary ⊙) */}
@@ -122,7 +125,7 @@ export default function HeroSection({
             </a>
           </motion.div>
 
-          {/* Compact Event Date & Venue Badge (Clean Oct 4, 2026 & Royal Fort, Aligarh) */}
+          {/* Compact Event Date & Venue Badge */}
           <motion.div
             variants={itemVariants}
             className="mt-6 sm:mt-7 inline-flex flex-wrap items-center justify-center gap-x-3.5 gap-y-1 text-xs font-semibold text-slate-600 bg-white/80 backdrop-blur-xs px-4 py-1.5 rounded-full border border-slate-200/70 shadow-2xs"

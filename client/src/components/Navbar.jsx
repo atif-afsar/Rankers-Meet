@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Award, Menu, X, ShieldCheck, Ticket, ArrowRight } from 'lucide-react';
 
-export default function Navbar({ isRegistrationOpen = true }) {
+export default function Navbar({
+  isRegistrationOpen = true,
+  eventName = 'Rankers Meet 2026',
+  organization = 'Yasir Ali Classes',
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
@@ -53,16 +57,16 @@ export default function Navbar({ isRegistrationOpen = true }) {
             {/* Brand Logo & Name */}
             <Link to="/rankers-meet" className="flex items-center space-x-2.5 sm:space-x-3 group">
               <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-white flex items-center justify-center p-1 border border-[#F0D5D7] shadow-sm group-hover:scale-105 transition-all duration-200 overflow-hidden flex-shrink-0">
-                <img src="/images/yac-logo.png" alt="Yasir Ali Classes" className="w-full h-full object-contain" />
+                <img src="/images/yac-logo.png" alt={organization} className="w-full h-full object-contain" />
               </div>
               <div>
                 <div className="flex items-center space-x-1">
                   <span className="text-[9px] sm:text-xs font-black tracking-widest text-[#D91F2B] uppercase bg-[#FFF7F7] px-1.5 py-0.5 rounded border border-[#F0D5D7]">
-                    Yasir Ali Classes
+                    {organization}
                   </span>
                 </div>
                 <span className="font-heading font-black text-sm sm:text-lg text-[#101522] tracking-tight block">
-                  Rankers Meet <span className="text-[#D91F2B]">2026</span>
+                  {eventName}
                 </span>
               </div>
             </Link>
@@ -160,10 +164,10 @@ export default function Navbar({ isRegistrationOpen = true }) {
           <div className="flex items-center justify-between h-16 border-b border-[#F0D5D7]">
             <div className="flex items-center space-x-2.5">
               <div className="w-10 h-10 rounded-2xl bg-white flex items-center justify-center p-1 border border-[#F0D5D7] shadow-xs">
-                <img src="/images/yac-logo.png" alt="Yasir Ali Classes" className="w-full h-full object-contain" />
+                <img src="/images/yac-logo.png" alt={organization} className="w-full h-full object-contain" />
               </div>
               <span className="font-heading font-black text-base text-[#101522]">
-                Rankers Meet <span className="text-[#D91F2B]">2026</span>
+                {eventName}
               </span>
             </div>
             <button
@@ -208,7 +212,7 @@ export default function Navbar({ isRegistrationOpen = true }) {
                 className="w-full inline-flex items-center justify-center py-4 rounded-2xl bg-[#D91F2B] active:bg-[#B81724] text-white font-black text-sm uppercase tracking-wider shadow-lg active:scale-95 transition-all"
               >
                 <Ticket className="w-4 h-4 mr-2 text-[#C89B3C]" />
-                Register for Rankers Meet 2026 →
+                Register for {eventName} →
               </Link>
             ) : (
               <div className="w-full text-center py-3.5 rounded-2xl bg-slate-100 border border-slate-200 text-slate-500 font-bold text-xs uppercase tracking-wider">

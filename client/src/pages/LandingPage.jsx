@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -52,6 +52,9 @@ export default function LandingPage() {
     fetchSettings();
   }, []);
 
+  const eventName = settings?.eventName || EVENT_DATA.name;
+  const organization = settings?.organization || EVENT_DATA.organization;
+  const tagline = settings?.tagline || EVENT_DATA.tagline;
   const eventDate = settings?.eventDate || EVENT_DATA.dateString;
   const eventTime = settings?.eventTime || EVENT_DATA.timeString;
   const venue = settings?.venue || EVENT_DATA.venueName;
@@ -59,6 +62,15 @@ export default function LandingPage() {
   const isRegistrationOpen = settings
     ? settings.isRegistrationOpen !== false && settings.registrationOpen !== false
     : true;
+
+  // Calculate targetDate dynamically for countdown timer if eventDate changes
+  const targetDate = useMemo(() => {
+    if (settings?.eventDate) {
+      const parsed = Date.parse(settings.eventDate);
+      if (!isNaN(parsed) && parsed > 0) return parsed;
+    }
+    return EVENT_DATA.eventDateTimestamp;
+  }, [settings?.eventDate]);
 
   const toggleFaq = (index) => {
     setOpenFaqIndex(openFaqIndex === index ? null : index);
@@ -82,10 +94,17 @@ export default function LandingPage() {
       )}
 
       {/* 2. STICKY NAVBAR */}
-      <Navbar isRegistrationOpen={isRegistrationOpen} />
+      <Navbar
+        isRegistrationOpen={isRegistrationOpen}
+        eventName={eventName}
+        organization={organization}
+      />
 
-      {/* 3. HERO SECTION: Minimal Editorial Academic Celebration (Hero.md Spec) */}
+      {/* 3. HERO SECTION */}
       <HeroSection
+        eventName={eventName}
+        organization={organization}
+        tagline={tagline}
         eventDate={eventDate}
         eventTime={eventTime}
         venue={venue}
@@ -95,7 +114,7 @@ export default function LandingPage() {
       {/* 4. COUNTDOWN INTEGRATION (Section 13) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 sm:mt-6 mb-16 sm:mb-20 relative z-30">
         <EventCountdown
-          targetDate={EVENT_DATA.eventDateTimestamp}
+          targetDate={targetDate}
           dateString={eventDate}
           timeString={eventTime}
         />
@@ -544,7 +563,7 @@ export default function LandingPage() {
           </h2>
 
           <p className="text-sm sm:text-base text-slate-300 max-w-xl mx-auto leading-relaxed">
-            Join Yasir Ali Sir, respected faculty mentors, and fellow commerce achievers on <strong>{eventDate}</strong>. Reserve your complimentary pass today.
+            Join Yasir Ali Sir, respected faculty mentors, and fellow commerce achievers on <strong>{eventDate}</strong> at <strong>{venue}</strong>. Reserve your complimentary pass today.
           </p>
 
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -554,7 +573,7 @@ export default function LandingPage() {
                 className="w-full sm:w-auto inline-flex items-center justify-center px-9 py-4 rounded-2xl bg-[#D91F2B] hover:bg-[#B81724] text-white font-black text-xs uppercase tracking-wider shadow-xl hover:shadow-[0_0_35px_rgba(217,31,43,0.4)] transition-all transform hover:-translate-y-0.5 group"
               >
                 <Ticket className="w-4 h-4 mr-2 text-[#C89B3C]" />
-                REGISTER FOR RANKERS MEET 2026 →
+                REGISTER FOR {eventName.toUpperCase()} →
               </Link>
             ) : (
               <div className="inline-flex items-center px-6 py-3.5 rounded-2xl bg-rose-950/80 border border-rose-500/50 text-rose-200 text-xs font-bold">
@@ -567,10 +586,16 @@ export default function LandingPage() {
       </section>
 
       {/* 14. FOOTER */}
-      <Footer />
+      <Footer
+        eventName={eventName}
+        organization={organization}
+      />
 
       {/* 15. MOBILE STICKY BOTTOM REGISTRATION DOCK (Section 10 in Mobile Spec) */}
-      <MobileBottomDock isRegistrationOpen={isRegistrationOpen} />
+      <MobileBottomDock
+        isRegistrationOpen={isRegistrationOpen}
+        eventName={eventName}
+      />
     </div>
   );
 }

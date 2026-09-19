@@ -60,8 +60,7 @@ export async function runSeed() {
       await EventSetting.create(eventData);
       console.log('[Seed] Initialized Event Settings.');
     } else {
-      await EventSetting.updateOne({}, { $set: eventData });
-      console.log('[Seed] Updated Event Settings to October 3, 2026.');
+      console.log('[Seed] Event settings already exist. Preserving user configurations.');
     }
 
     // 3. Initialize Counter if not present

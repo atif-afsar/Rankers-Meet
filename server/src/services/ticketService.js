@@ -29,6 +29,7 @@ export async function getTicketDetails(registrationId) {
     email: registration.email,
     mobileNumber: registration.mobileNumber,
     classCourse: registration.classCourse,
+    academicYear: registration.academicYear || '2025-2026',
     exam: registration.exam,
     rank: registration.rank,
     schoolCollege: registration.schoolCollege,

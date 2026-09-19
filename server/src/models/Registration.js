@@ -48,6 +48,13 @@ const registrationSchema = new mongoose.Schema(
       required: [true, 'Class/Course is required'],
       trim: true,
     },
+    academicYear: {
+      type: String,
+      enum: ['2025-2026', '2026-2027'],
+      default: '2025-2026',
+      trim: true,
+      index: true,
+    },
     exam: {
       type: String,
       required: [true, 'Exam is required'],

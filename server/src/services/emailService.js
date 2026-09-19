@@ -19,6 +19,7 @@ export async function sendTicketEmail({
   to,
   studentName,
   registrationId,
+  academicYear = '2025-2026',
   exam,
   rank,
   numberOfGuests,
@@ -265,6 +266,10 @@ export async function sendTicketEmail({
         <div class="row">
           <span class="row-label">Address:</span>
           <span class="row-value" style="font-size: 12px;">${address}</span>
+        </div>
+        <div class="row">
+          <span class="row-label">Academic Year:</span>
+          <span class="row-value">${academicYear}</span>
         </div>
         <div class="row">
           <span class="row-label">Exam / Category:</span>

@@ -100,6 +100,7 @@ export async function processCheckInService({ token, qrToken, registrationId, sc
     error.attendee = {
       registrationId: registration.registrationId,
       studentName: registration.studentName,
+      academicYear: registration.academicYear || '2025-2026',
       exam: registration.exam,
       rank: registration.rank,
       classCourse: registration.classCourse,
@@ -126,6 +127,7 @@ export async function processCheckInService({ token, qrToken, registrationId, sc
   const checkInPayload = {
     registrationId: updatedRegistration.registrationId,
     studentName: updatedRegistration.studentName,
+    academicYear: updatedRegistration.academicYear || '2025-2026',
     exam: updatedRegistration.exam,
     rank: updatedRegistration.rank,
     classCourse: updatedRegistration.classCourse,

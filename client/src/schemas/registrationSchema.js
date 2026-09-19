@@ -9,6 +9,11 @@ export const COURSE_EXAM_OPTIONS = [
   'Other Course / Entrance',
 ];
 
+export const ACADEMIC_YEAR_OPTIONS = [
+  '2025-2026',
+  '2026-2027',
+];
+
 export const registrationFormSchema = z.object({
   studentName: z
     .string()
@@ -34,6 +39,11 @@ export const registrationFormSchema = z.object({
     .string()
     .trim()
     .min(1, 'Course / Entrance Exam is required.'),
+  academicYear: z
+    .enum(['2025-2026', '2026-2027'], {
+      errorMap: () => ({ message: 'Please select your academic / batch year.' }),
+    })
+    .default('2025-2026'),
   exam: z
     .string()
     .optional()

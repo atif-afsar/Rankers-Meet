@@ -6,7 +6,7 @@ import confetti from 'canvas-confetti';
 import api from '../api/client';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { registrationFormSchema, COURSE_EXAM_OPTIONS } from '../schemas/registrationSchema';
+import { registrationFormSchema, COURSE_EXAM_OPTIONS, ACADEMIC_YEAR_OPTIONS } from '../schemas/registrationSchema';
 import {
   User,
   GraduationCap,
@@ -19,6 +19,7 @@ import {
   Loader2,
   Sparkles,
   RefreshCw,
+  Calendar,
 } from 'lucide-react';
 
 export default function RegisterPage() {
@@ -63,6 +64,7 @@ export default function RegisterPage() {
       mobileNumber: '',
       email: '',
       classCourse: '11th Entrance (Science / Commerce / Diploma)',
+      academicYear: '2025-2026',
       exam: '11th Entrance (Science / Commerce / Diploma)',
       rank: '',
       schoolCollege: '',
@@ -72,6 +74,7 @@ export default function RegisterPage() {
   });
 
   const watchRank = watch('rank');
+  const watchAcademicYear = watch('academicYear');
 
   const steps = [
     { number: 1, title: 'Personal Details', shortTitle: 'Personal', icon: User },
@@ -86,7 +89,7 @@ export default function RegisterPage() {
       return await trigger(['studentName', 'parentName', 'mobileNumber', 'email']);
     }
     if (step === 2) {
-      return await trigger(['classCourse', 'rank', 'schoolCollege']);
+      return await trigger(['classCourse', 'academicYear', 'rank', 'schoolCollege']);
     }
     if (step === 3) {
       return await trigger(['numberOfGuests', 'additionalInfo']);
@@ -463,6 +466,55 @@ export default function RegisterPage() {
                     )}
                   </div>
 
+                  {/* Academic / Batch Year Selection */}
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                        Academic / Batch Year <span className="text-rose-500" aria-hidden="true">*</span>
+                      </label>
+                      <span className="text-[11px] text-slate-400 font-medium">Rankers session batch</span>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      {ACADEMIC_YEAR_OPTIONS.map((yr) => {
+                        const isSelected = watchAcademicYear === yr;
+                        return (
+                          <button
+                            key={yr}
+                            type="button"
+                            onClick={() => setValue('academicYear', yr, { shouldValidate: true, shouldDirty: true })}
+                            className={`flex items-center justify-between p-3.5 rounded-xl border text-sm font-bold transition-all ${
+                              isSelected
+                                ? 'border-[#D91F2B] bg-[#FFF7F7] text-[#D91F2B] shadow-sm ring-2 ring-[#D91F2B]/20'
+                                : 'border-slate-300 bg-white text-slate-700 hover:border-slate-400 hover:bg-slate-50'
+                            }`}
+                          >
+                            <div className="flex items-center gap-2.5">
+                              <span
+                                className={`w-4 h-4 rounded-full border flex items-center justify-center transition-colors ${
+                                  isSelected
+                                    ? 'border-[#D91F2B] bg-[#D91F2B]'
+                                    : 'border-slate-400 bg-white'
+                                }`}
+                              >
+                                {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                              </span>
+                              <span>Session {yr}</span>
+                            </div>
+                            {isSelected && <CheckCircle2 className="w-4 h-4 text-[#D91F2B]" />}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    <input type="hidden" {...register('academicYear')} />
+                    {errors.academicYear && (
+                      <p className="text-xs text-rose-600 mt-1.5 font-medium flex items-center gap-1">
+                        <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
+                        {errors.academicYear.message}
+                      </p>
+                    )}
+                  </div>
+
                   {/* Rank / Result Status with Quick Options */}
                   <div>
                     <div className="flex items-center justify-between mb-1.5">
@@ -636,6 +688,10 @@ export default function RegisterPage() {
                   <div className="flex justify-between py-1 border-b border-slate-200/80">
                     <span className="text-slate-500 font-medium">Course / Entrance Exam</span>
                     <span className="font-bold text-slate-900 text-right">{values.classCourse}</span>
+                  </div>
+                  <div className="flex justify-between py-1 border-b border-slate-200/80">
+                    <span className="text-slate-500 font-medium">Academic / Batch Year</span>
+                    <span className="font-bold text-[#D91F2B] text-right">{values.academicYear || '2025-2026'}</span>
                   </div>
                   <div className="flex justify-between py-1 border-b border-slate-200/80">
                     <span className="text-slate-500 font-medium">Rank / Status</span>

@@ -18,6 +18,7 @@ const registrationSchema = z.object({
   mobileNumber: z.string().optional(),
   email: z.string().email('email must be a valid email address'),
   classCourse: z.string().min(1, 'classCourse is required'),
+  academicYear: z.enum(['2025-2026', '2026-2027']).optional().default('2025-2026'),
   exam: z.string().optional(),
   rank: z.union([z.string(), z.number()]).optional().default('Selected'),
   schoolCollege: z.string().min(2, 'schoolCollege is required'),
@@ -46,6 +47,7 @@ export async function createRegistration(req, res, next) {
 
     const registrationData = {
       ...payload,
+      academicYear: payload.academicYear || '2025-2026',
       mobile: normalizedMobile,
       mobileNumber: normalizedMobile,
       guestCount: normalizedGuests,
@@ -82,6 +84,7 @@ export async function getRegistrations(req, res, next) {
       status = 'all',
       exam = 'all',
       classCourse = 'all',
+      academicYear = 'all',
       emailStatus = 'all',
       checkedIn,
     } = req.query;
@@ -93,6 +96,7 @@ export async function getRegistrations(req, res, next) {
       status,
       exam,
       classCourse,
+      academicYear,
       emailStatus,
       checkedIn,
     });

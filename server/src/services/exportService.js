@@ -42,6 +42,11 @@ export function buildRegistrationQuery(filters = {}) {
     query.classCourse = filters.classCourse;
   }
 
+  // Academic Year filter
+  if (filters.academicYear && filters.academicYear !== 'all') {
+    query.academicYear = filters.academicYear;
+  }
+
   // Email delivery status filter
   if (filters.emailStatus && filters.emailStatus !== 'all') {
     query.emailStatus = filters.emailStatus;
@@ -72,7 +77,7 @@ export function buildRegistrationQuery(filters = {}) {
 }
 
 /**
- * Extracts and maps rows matching the 14 canonical fields from 13-REPORTING-EXPORT.md
+ * Extracts and maps rows matching the canonical fields including Academic Year
  */
 export async function getFormattedRegistrationRows(filters = {}) {
   const query = buildRegistrationQuery(filters);
@@ -85,6 +90,7 @@ export async function getFormattedRegistrationRows(filters = {}) {
     'Mobile': r.mobileNumber || r.mobile || 'N/A',
     'Email': r.email,
     'Class/Course': r.classCourse,
+    'Academic Year': r.academicYear || '2025-2026',
     'Exam': r.exam,
     'Rank': r.rank,
     'School/College': r.schoolCollege,

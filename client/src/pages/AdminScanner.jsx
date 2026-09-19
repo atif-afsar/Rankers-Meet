@@ -276,7 +276,13 @@ export default function AdminScanner() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs pt-1">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs pt-1">
+                  <div>
+                    <span className="text-white/70 block">Academic Year</span>
+                    <span className="font-bold text-sm text-white">
+                      {scanResult.attendee.academicYear || '2025-2026'}
+                    </span>
+                  </div>
                   <div>
                     <span className="text-white/70 block">Exam & Rank</span>
                     <span className="font-bold text-sm text-white">
@@ -290,7 +296,7 @@ export default function AdminScanner() {
                     </span>
                   </div>
                   {scanResult.attendee.checkedInAt && (
-                    <div className="col-span-2 sm:col-span-1">
+                    <div>
                       <span className="text-white/70 block flex items-center gap-1">
                         <Clock className="w-3 h-3" /> Checked In At
                       </span>

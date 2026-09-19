@@ -44,6 +44,7 @@ export async function createNewRegistration(data) {
   // 5. Save registration record
   const registration = await Registration.create({
     ...data,
+    academicYear: data.academicYear || '2025-2026',
     registrationId,
     qrToken,
     email: data.email.toLowerCase(),
@@ -62,6 +63,7 @@ export async function createNewRegistration(data) {
     to: registration.email,
     studentName: registration.studentName,
     registrationId: registration.registrationId,
+    academicYear: registration.academicYear || '2025-2026',
     exam: registration.exam,
     rank: registration.rank,
     numberOfGuests: registration.numberOfGuests || registration.guestCount,
@@ -73,6 +75,7 @@ export async function createNewRegistration(data) {
   broadcastEvent('registration:new', {
     registrationId: registration.registrationId,
     studentName: registration.studentName,
+    academicYear: registration.academicYear || '2025-2026',
     exam: registration.exam,
     createdAt: registration.createdAt,
   });
@@ -92,6 +95,7 @@ export async function queryRegistrations({
   status = 'all',
   exam = 'all',
   classCourse = 'all',
+  academicYear = 'all',
   emailStatus = 'all',
   checkedIn,
 }) {
@@ -122,6 +126,10 @@ export async function queryRegistrations({
 
   if (classCourse && classCourse !== 'all') {
     query.classCourse = classCourse;
+  }
+
+  if (academicYear && academicYear !== 'all') {
+    query.academicYear = academicYear;
   }
 
   if (emailStatus && emailStatus !== 'all') {

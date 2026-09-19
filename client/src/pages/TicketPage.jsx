@@ -231,20 +231,24 @@ export default function TicketPage() {
             </div>
 
             {/* Examination & Rank Highlight */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200 text-center">
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200 text-center">
+              <div>
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Academic Year</p>
+                <p className="font-bold text-sm text-blue-700 mt-0.5">{ticketData.academicYear || '2025-2026'}</p>
+              </div>
               <div>
                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Exam</p>
                 <p className="font-bold text-sm text-slate-900 mt-0.5">{ticketData.exam}</p>
               </div>
               <div>
                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Rank / Score</p>
-                <p className="font-bold text-sm text-blue-700 mt-0.5">{ticketData.rank}</p>
+                <p className="font-bold text-sm text-slate-900 mt-0.5">{ticketData.rank}</p>
               </div>
               <div>
                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Course</p>
                 <p className="font-bold text-sm text-slate-900 mt-0.5">{ticketData.classCourse}</p>
               </div>
-              <div>
+              <div className="col-span-2 sm:col-span-1">
                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Parent Accompanying</p>
                 <p className="font-bold text-sm text-slate-900 mt-0.5">
                   {Number(ticketData.numberOfGuests) === 1 ? '1 Parent' : 'Student Only'}

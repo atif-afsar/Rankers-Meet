@@ -30,6 +30,7 @@ export default function AdminAttendees() {
   const [statusFilter, setStatusFilter] = useState('all');
   const [examFilter, setExamFilter] = useState('all');
   const [classFilter, setClassFilter] = useState('all');
+  const [yearFilter, setYearFilter] = useState('all');
   const [emailFilter, setEmailFilter] = useState('all');
   const [selectedAttendee, setSelectedAttendee] = useState(null);
   const [modalQr, setModalQr] = useState('');
@@ -48,6 +49,7 @@ export default function AdminAttendees() {
         status: statusFilter,
         exam: examFilter,
         classCourse: classFilter,
+        academicYear: yearFilter,
         emailStatus: emailFilter,
       };
 
@@ -93,6 +95,7 @@ export default function AdminAttendees() {
         status: statusFilter,
         exam: examFilter,
         classCourse: classFilter,
+        academicYear: yearFilter,
         emailStatus: emailFilter,
       };
       const res = await api.get('/registrations', { params });
@@ -112,7 +115,7 @@ export default function AdminAttendees() {
       fetchRegistrations(1);
     }, 300);
     return () => clearTimeout(timer);
-  }, [search, statusFilter, examFilter, classFilter, emailFilter]);
+  }, [search, statusFilter, examFilter, classFilter, yearFilter, emailFilter]);
 
   const handleOpenAttendee = async (attendee) => {
     setSelectedAttendee(attendee);
@@ -233,9 +236,9 @@ export default function AdminAttendees() {
         </div>
 
         {/* Search and Filters Bar (11-ADMIN-DASHBOARD.md) */}
-        <div className="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm grid grid-cols-1 sm:grid-cols-12 gap-3">
+        <div className="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3">
           {/* Search Box: Student name, Registration ID, Mobile, Email */}
-          <div className="sm:col-span-4 relative">
+          <div className="sm:col-span-2 lg:col-span-3 relative">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
@@ -246,8 +249,21 @@ export default function AdminAttendees() {
             />
           </div>
 
+          {/* Filter: Academic Year */}
+          <div className="sm:col-span-1 lg:col-span-2">
+            <select
+              value={yearFilter}
+              onChange={(e) => setYearFilter(e.target.value)}
+              className="w-full px-3 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm bg-white font-medium text-slate-700"
+            >
+              <option value="all">All Academic Years</option>
+              <option value="2025-2026">2025-2026</option>
+              <option value="2026-2027">2026-2027</option>
+            </select>
+          </div>
+
           {/* Filter: Check-in status */}
-          <div className="sm:col-span-2">
+          <div className="sm:col-span-1 lg:col-span-2">
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
@@ -260,7 +276,7 @@ export default function AdminAttendees() {
           </div>
 
           {/* Filter: Exam */}
-          <div className="sm:col-span-2">
+          <div className="sm:col-span-1 lg:col-span-2">
             <select
               value={examFilter}
               onChange={(e) => setExamFilter(e.target.value)}
@@ -280,7 +296,7 @@ export default function AdminAttendees() {
           </div>
 
           {/* Filter: Course / Entrance */}
-          <div className="sm:col-span-2">
+          <div className="sm:col-span-1 lg:col-span-2">
             <select
               value={classFilter}
               onChange={(e) => setClassFilter(e.target.value)}
@@ -297,11 +313,11 @@ export default function AdminAttendees() {
           </div>
 
           {/* Filter: Email delivery */}
-          <div className="sm:col-span-2">
+          <div className="sm:col-span-1 lg:col-span-1">
             <select
               value={emailFilter}
               onChange={(e) => setEmailFilter(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm bg-white font-medium text-slate-700"
+              className="w-full px-2 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm bg-white font-medium text-slate-700"
             >
               <option value="all">All Emails</option>
               <option value="SENT">Sent</option>
@@ -328,6 +344,7 @@ export default function AdminAttendees() {
                     <th className="py-3.5 px-4">Mobile</th>
                     <th className="py-3.5 px-4">Email</th>
                     <th className="py-3.5 px-4">Class</th>
+                    <th className="py-3.5 px-4">Year</th>
                     <th className="py-3.5 px-4">Exam</th>
                     <th className="py-3.5 px-4">Rank</th>
                     <th className="py-3.5 px-4">Guests</th>
@@ -369,24 +386,31 @@ export default function AdminAttendees() {
                           {item.classCourse}
                         </td>
 
-                        {/* 6. Exam */}
+                        {/* 6. Academic Year */}
                         <td className="py-3.5 px-4">
-                          <span className="inline-block bg-blue-50 text-blue-700 text-[11px] font-bold px-2 py-0.5 rounded border border-blue-200">
+                          <span className="inline-block bg-blue-50 text-blue-800 text-[11px] font-bold px-2 py-0.5 rounded border border-blue-200">
+                            {item.academicYear || '2025-2026'}
+                          </span>
+                        </td>
+
+                        {/* 7. Exam */}
+                        <td className="py-3.5 px-4">
+                          <span className="inline-block bg-slate-50 text-slate-700 text-[11px] font-bold px-2 py-0.5 rounded border border-slate-200">
                             {item.exam}
                           </span>
                         </td>
 
-                        {/* 7. Rank */}
+                        {/* 8. Rank */}
                         <td className="py-3.5 px-4 text-xs font-semibold text-slate-900">
                           {item.rank}
                         </td>
 
-                        {/* 8. Guests */}
+                        {/* 9. Guests */}
                         <td className="py-3.5 px-4 text-xs font-bold text-slate-700">
                           {item.numberOfGuests}
                         </td>
 
-                        {/* 9. Status */}
+                        {/* 10. Status */}
                         <td className="py-3.5 px-4">
                           {isCheckedIn ? (
                             <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800">
@@ -399,7 +423,7 @@ export default function AdminAttendees() {
                           )}
                         </td>
 
-                        {/* 10. Registered At */}
+                        {/* 11. Registered At */}
                         <td className="py-3.5 px-4 text-xs text-slate-500 font-mono">
                           {new Date(item.createdAt).toLocaleDateString([], {
                             month: 'short',
@@ -409,7 +433,7 @@ export default function AdminAttendees() {
                           })}
                         </td>
 
-                        {/* 11. Actions */}
+                        {/* 12. Actions */}
                         <td className="py-3.5 px-4 text-right">
                           <div className="inline-flex items-center space-x-1 sm:space-x-2">
                             <button
@@ -582,6 +606,10 @@ export default function AdminAttendees() {
                 <div className="flex justify-between py-1.5 border-b border-slate-100">
                   <span className="text-slate-500 font-medium">Class / Course</span>
                   <span className="font-bold text-slate-800">{selectedAttendee.classCourse}</span>
+                </div>
+                <div className="flex justify-between py-1.5 border-b border-slate-100">
+                  <span className="text-slate-500 font-medium">Academic / Batch Year</span>
+                  <span className="font-bold text-blue-700">{selectedAttendee.academicYear || '2025-2026'}</span>
                 </div>
                 <div className="flex justify-between py-1.5 border-b border-slate-100">
                   <span className="text-slate-500 font-medium">Exam & Rank</span>

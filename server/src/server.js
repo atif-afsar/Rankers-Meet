@@ -25,6 +25,9 @@ const PORT = process.env.PORT || 5000;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/rankers_meet';
 const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
 
+// Trust reverse proxy headers (Vercel, Nginx, Cloudflare) for accurate rate limiting and IP logging
+app.set('trust proxy', 1);
+
 // 1. Security: Helmet HTTP Headers
 app.use(
   helmet({

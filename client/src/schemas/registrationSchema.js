@@ -2,6 +2,7 @@ import * as z from 'zod';
 
 export const COURSE_EXAM_OPTIONS = [
   '6th Entrance',
+  '9th Entrance',
   '11th Entrance (Science / Commerce / Diploma)',
   'B.Com / BBA',
   'BA / BA Foreign Languages / BALLB',

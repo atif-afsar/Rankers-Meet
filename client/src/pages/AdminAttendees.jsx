@@ -304,6 +304,7 @@ export default function AdminAttendees() {
             >
               <option value="all">All Courses / Entrances</option>
               <option value="6th Entrance">6th Entrance</option>
+              <option value="9th Entrance">9th Entrance</option>
               <option value="11th Entrance (Science / Commerce / Diploma)">11th Entrance (Sci/Comm/Dip)</option>
               <option value="B.Com / BBA">B.Com / BBA</option>
               <option value="BA / BA Foreign Languages / BALLB">BA / BA FL / BALLB</option>

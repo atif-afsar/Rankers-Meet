@@ -79,6 +79,11 @@ const registrationSchema = new mongoose.Schema(
       default: 0,
       min: 0,
     },
+    withParents: {
+      type: String,
+      default: 'With Parents',
+      trim: true,
+    },
     additionalInfo: {
       type: String,
       default: '',

@@ -272,11 +272,11 @@ export default function SuccessPage() {
                 <p className="font-bold text-sm text-slate-900 mt-0.5">{ticketData.classCourse}</p>
               </div>
               <div className="col-span-2 sm:col-span-1">
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Parents Accompanying</p>
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Parents Attendance</p>
                 <p className="font-bold text-sm text-slate-900 mt-0.5">
-                  {Number(ticketData.numberOfGuests) > 0
-                    ? (Number(ticketData.numberOfGuests) === 1 ? '1 Parent' : 'Parents (Mother & Father)')
-                    : 'Student Only'}
+                  {ticketData.withParents === 'Without Parents' || Number(ticketData.numberOfGuests) === 0
+                    ? 'Without Parents (Student Only)'
+                    : 'With Parents'}
                 </p>
               </div>
             </div>

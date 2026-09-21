@@ -22,8 +22,9 @@ const registrationSchema = z.object({
   exam: z.string().optional(),
   rank: z.union([z.string(), z.number()]).optional().default('Selected'),
   schoolCollege: z.string().min(2, 'schoolCollege is required'),
-  guestCount: z.coerce.number().int().min(0).max(2).optional(),
-  numberOfGuests: z.coerce.number().int().min(0).max(2).optional(),
+  guestCount: z.coerce.number().int().min(0, 'Guest count cannot be negative').max(2, 'Maximum 2 accompanying parents allowed (Mother and Father)').optional(),
+  numberOfGuests: z.coerce.number().int().min(0, 'Guest count cannot be negative').max(2, 'Maximum 2 accompanying parents allowed (Mother and Father)').optional(),
+  withParents: z.union([z.string(), z.boolean()]).optional(),
   additionalInfo: z.string().optional().default(''),
 }).refine((data) => data.mobile || data.mobileNumber, {
   message: 'mobile number is required',
@@ -43,13 +44,18 @@ export async function createRegistration(req, res, next) {
 
     const payload = parseResult.data;
     const normalizedMobile = (payload.mobile || payload.mobileNumber).replace(/\s+/g, '');
-    const normalizedGuests = payload.guestCount !== undefined ? payload.guestCount : (payload.numberOfGuests || 0);
+    const rawGuests = payload.guestCount !== undefined ? payload.guestCount : (payload.numberOfGuests || 0);
+    const isWithParents = payload.withParents !== undefined
+      ? (payload.withParents !== 'Without Parents' && payload.withParents !== 'No' && payload.withParents !== false)
+      : (rawGuests > 0);
+    const normalizedGuests = isWithParents ? 1 : 0;
 
     const registrationData = {
       ...payload,
       academicYear: payload.academicYear || '2025-2026',
       mobile: normalizedMobile,
       mobileNumber: normalizedMobile,
+      withParents: isWithParents ? 'With Parents' : 'Without Parents',
       guestCount: normalizedGuests,
       numberOfGuests: normalizedGuests,
       exam: payload.exam || payload.classCourse,

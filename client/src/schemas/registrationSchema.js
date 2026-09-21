@@ -57,9 +57,14 @@ export const registrationFormSchema = z.object({
     .string()
     .trim()
     .min(1, 'School/College is required.'),
+  withParents: z
+    .string()
+    .default('With Parents'),
   numberOfGuests: z.coerce
-    .number({ invalid_type_error: 'Please select parent accompaniment.' })
-    .min(0, 'Cannot be negative.')
-    .max(2, 'Maximum 2 accompanying parents allowed (Mother and Father).'),
+    .number()
+    .min(0)
+    .max(2)
+    .optional()
+    .default(1),
   additionalInfo: z.string().optional().default(''),
 });

@@ -68,13 +68,15 @@ export default function RegisterPage() {
       exam: '11th Entrance (Science / Commerce / Diploma)',
       rank: '',
       schoolCollege: '',
-      numberOfGuests: 2,
+      withParents: 'With Parents',
+      numberOfGuests: 1,
       additionalInfo: '',
     },
   });
 
   const watchRank = watch('rank');
   const watchAcademicYear = watch('academicYear');
+  const watchWithParents = watch('withParents');
 
   const steps = [
     { number: 1, title: 'Personal Details', shortTitle: 'Personal', icon: User },
@@ -92,7 +94,7 @@ export default function RegisterPage() {
       return await trigger(['classCourse', 'academicYear', 'rank', 'schoolCollege']);
     }
     if (step === 3) {
-      return await trigger(['numberOfGuests', 'additionalInfo']);
+      return await trigger(['withParents', 'additionalInfo']);
     }
     return true;
   };
@@ -125,10 +127,15 @@ export default function RegisterPage() {
     setServerError('');
 
     try {
+      const isWithParents = data.withParents !== 'Without Parents';
       const submissionData = {
         ...data,
         exam: data.classCourse,
+        withParents: isWithParents ? 'With Parents' : 'Without Parents',
+        numberOfGuests: isWithParents ? 1 : 0,
+        guestCount: isWithParents ? 1 : 0,
       };
+
       const res = await api.post('/registrations', submissionData);
       if (res.data?.success) {
         try {
@@ -527,7 +534,7 @@ export default function RegisterPage() {
                       id="rank"
                       type="text"
                       {...register('rank')}
-                      placeholder="e.g. Rank 1, General 15, or Selected"
+                      placeholder="e.g. Rank 1, General 15, Selected, or Guest"
                       aria-invalid={errors.rank ? 'true' : 'false'}
                       className={`w-full px-4 py-3 rounded-xl border text-base sm:text-sm transition-colors focus:outline-none focus:ring-2 ${
                         errors.rank
@@ -572,6 +579,17 @@ export default function RegisterPage() {
                       >
                         Top 10 Ranker
                       </button>
+                      <button
+                        type="button"
+                        onClick={() => setValue('rank', 'Guest', { shouldValidate: true, shouldDirty: true })}
+                        className={`px-3 py-1 rounded-lg text-xs font-bold transition-all border ${
+                          watchRank === 'Guest'
+                            ? 'bg-purple-600 text-white border-purple-600 shadow-xs'
+                            : 'bg-purple-50 text-purple-700 border-purple-200 hover:bg-purple-100'
+                        }`}
+                      >
+                        Guest
+                      </button>
                     </div>
 
                     {errors.rank && (
@@ -615,29 +633,85 @@ export default function RegisterPage() {
               <div className="space-y-4 sm:space-y-5">
                 <div className="border-b border-slate-100 pb-3 sm:pb-4 mb-4 sm:mb-6">
                   <h2 className="font-heading font-black text-lg sm:text-xl text-slate-900">
-                    Step 3: Accompanying Parents
+                    Step 3: Parents Attendance
                   </h2>
                   <p className="text-xs text-slate-500 mt-1">
-                    Please indicate whether you will be attending alone or accompanied by your parents (Mother and Father).
+                    Please indicate whether you will be attending with parents or alone.
                   </p>
                 </div>
 
-                {/* Accompanying Parents */}
+                {/* Parents Attendance Options */}
                 <div>
-                  <label htmlFor="numberOfGuests" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                    Will you be accompanied by parents? <span className="text-rose-500" aria-hidden="true">*</span>
-                  </label>
-                  <select
-                    id="numberOfGuests"
-                    {...register('numberOfGuests')}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600 text-base sm:text-sm bg-white"
-                  >
-                    <option value={2}>Yes, with Parents (Mother and Father)</option>
-                    <option value={0}>No, Attending Alone (Student Only)</option>
-                  </select>
-                  <p className="text-xs text-slate-500 mt-1.5">
-                    Note: To ensure seating arrangements for all rankers, please confirm whether you will be attending with both parents (Mother and Father) or alone.
-                  </p>
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                      Parents Attendance <span className="text-rose-500" aria-hidden="true">*</span>
+                    </label>
+                    <span className="text-[11px] text-slate-400 font-medium">Select attendance option</span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setValue('withParents', 'With Parents', { shouldValidate: true, shouldDirty: true });
+                        setValue('numberOfGuests', 1);
+                      }}
+                      className={`flex items-center justify-between p-4 rounded-xl border text-sm font-bold transition-all text-left ${
+                        watchWithParents !== 'Without Parents'
+                          ? 'border-[#D91F2B] bg-[#FFF7F7] text-[#D91F2B] shadow-sm ring-2 ring-[#D91F2B]/20'
+                          : 'border-slate-300 bg-white text-slate-700 hover:border-slate-400 hover:bg-slate-50'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span
+                          className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
+                            watchWithParents !== 'Without Parents'
+                              ? 'border-[#D91F2B] bg-[#D91F2B]'
+                              : 'border-slate-400 bg-white'
+                          }`}
+                        >
+                          {watchWithParents !== 'Without Parents' && <span className="w-2 h-2 rounded-full bg-white" />}
+                        </span>
+                        <div>
+                          <p className="text-sm font-bold">With Parents</p>
+                          <p className="text-xs font-normal text-slate-500 mt-0.5">Accompanying with parents</p>
+                        </div>
+                      </div>
+                      {watchWithParents !== 'Without Parents' && <CheckCircle2 className="w-5 h-5 text-[#D91F2B] flex-shrink-0" />}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setValue('withParents', 'Without Parents', { shouldValidate: true, shouldDirty: true });
+                        setValue('numberOfGuests', 0);
+                      }}
+                      className={`flex items-center justify-between p-4 rounded-xl border text-sm font-bold transition-all text-left ${
+                        watchWithParents === 'Without Parents'
+                          ? 'border-[#D91F2B] bg-[#FFF7F7] text-[#D91F2B] shadow-sm ring-2 ring-[#D91F2B]/20'
+                          : 'border-slate-300 bg-white text-slate-700 hover:border-slate-400 hover:bg-slate-50'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span
+                          className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
+                            watchWithParents === 'Without Parents'
+                              ? 'border-[#D91F2B] bg-[#D91F2B]'
+                              : 'border-slate-400 bg-white'
+                          }`}
+                        >
+                          {watchWithParents === 'Without Parents' && <span className="w-2 h-2 rounded-full bg-white" />}
+                        </span>
+                        <div>
+                          <p className="text-sm font-bold">Without Parents</p>
+                          <p className="text-xs font-normal text-slate-500 mt-0.5">Attending alone (Student only)</p>
+                        </div>
+                      </div>
+                      {watchWithParents === 'Without Parents' && <CheckCircle2 className="w-5 h-5 text-[#D91F2B] flex-shrink-0" />}
+                    </button>
+                  </div>
+                  <input type="hidden" {...register('withParents')} />
+                  <input type="hidden" {...register('numberOfGuests')} />
                 </div>
 
                 {/* Additional Information */}
@@ -702,9 +776,9 @@ export default function RegisterPage() {
                     <span className="font-bold text-slate-900 text-right">{values.schoolCollege}</span>
                   </div>
                   <div className="flex justify-between py-1">
-                    <span className="text-slate-500 font-medium">Accompanying Parents</span>
+                    <span className="text-slate-500 font-medium">Parents Attendance</span>
                     <span className="font-bold text-slate-900 text-right">
-                      {Number(values.numberOfGuests) > 0 ? 'Yes, with Parents (Mother and Father)' : 'Attending Alone (Student Only)'}
+                      {values.withParents === 'Without Parents' ? 'Without Parents (Student Only)' : 'With Parents'}
                     </span>
                   </div>
                 </div>

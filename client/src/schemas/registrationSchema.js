@@ -60,6 +60,6 @@ export const registrationFormSchema = z.object({
   numberOfGuests: z.coerce
     .number({ invalid_type_error: 'Please select parent accompaniment.' })
     .min(0, 'Cannot be negative.')
-    .max(1, 'Maximum 1 accompanying parent allowed (Mother or Father).'),
+    .max(2, 'Maximum 2 accompanying parents allowed (Mother and Father).'),
   additionalInfo: z.string().optional().default(''),
 });

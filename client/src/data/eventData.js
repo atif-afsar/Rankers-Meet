@@ -227,7 +227,7 @@ export const EVENT_DATA = {
     },
     {
       q: 'Can parents accompany the student to the venue?',
-      a: 'Yes! To ensure seating and banquet arrangements for all felicitated rankers, each student is warmly welcome to bring 1 parent (either mother or father). Please indicate this during online registration so seating can be reserved.',
+      a: 'Yes! To ensure seating and banquet arrangements for all felicitated rankers, each student is warmly welcome to bring their parents (Mother and Father). Please indicate this during online registration so seating can be reserved.',
     },
     {
       q: 'How will I receive my digital pass and QR ticket?',
@@ -239,7 +239,7 @@ export const EVENT_DATA = {
     },
     {
       q: 'Is there any registration fee for Rankers Meet 2026?',
-      a: 'No. Registration, felicitation, honors, and refreshments are completely complimentary for all verified Yasir Ali Classes rankers and their accompanying parent.',
+      a: 'No. Registration, felicitation, honors, and refreshments are completely complimentary for all verified Yasir Ali Classes rankers and their accompanying parents.',
     },
   ],
 };

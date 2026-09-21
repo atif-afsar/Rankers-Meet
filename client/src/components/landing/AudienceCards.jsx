@@ -65,7 +65,7 @@ export default function AudienceCards({ categories = [] }) {
             <Award className="w-4 h-4" />
           </div>
           <p className="text-slate-700">
-            <strong className="text-[#101522]">Parent Accompaniment Policy:</strong> To ensure comfortable seating for every achiever, each student is warmly welcome to bring <strong>1 parent (either mother or father)</strong>.
+            <strong className="text-[#101522]">Parent Accompaniment Policy:</strong> To ensure comfortable seating for every achiever, each student is warmly welcome to bring <strong>parents (Mother and Father)</strong>.
           </p>
         </div>
         <span className="text-[11px] font-black uppercase tracking-wider text-[#D91F2B] whitespace-nowrap bg-white px-3 py-1.5 rounded-xl border border-[#F0D5D7] shadow-xs">

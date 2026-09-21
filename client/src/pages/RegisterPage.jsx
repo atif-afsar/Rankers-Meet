@@ -68,7 +68,7 @@ export default function RegisterPage() {
       exam: '11th Entrance (Science / Commerce / Diploma)',
       rank: '',
       schoolCollege: '',
-      numberOfGuests: 1,
+      numberOfGuests: 2,
       additionalInfo: '',
     },
   });
@@ -79,7 +79,7 @@ export default function RegisterPage() {
   const steps = [
     { number: 1, title: 'Personal Details', shortTitle: 'Personal', icon: User },
     { number: 2, title: 'Academic Details', shortTitle: 'Academic', icon: GraduationCap },
-    { number: 3, title: 'Parent Attendance', shortTitle: 'Parent', icon: Users },
+    { number: 3, title: 'Parents Attendance', shortTitle: 'Parents', icon: Users },
     { number: 4, title: 'Confirmation', shortTitle: 'Confirm', icon: CheckCircle2 },
   ];
 
@@ -615,28 +615,28 @@ export default function RegisterPage() {
               <div className="space-y-4 sm:space-y-5">
                 <div className="border-b border-slate-100 pb-3 sm:pb-4 mb-4 sm:mb-6">
                   <h2 className="font-heading font-black text-lg sm:text-xl text-slate-900">
-                    Step 3: Accompanying Parent
+                    Step 3: Accompanying Parents
                   </h2>
                   <p className="text-xs text-slate-500 mt-1">
-                    Please indicate whether you will be attending alone or accompanied by 1 parent (mother or father).
+                    Please indicate whether you will be attending alone or accompanied by your parents (Mother and Father).
                   </p>
                 </div>
 
-                {/* Accompanying Parent */}
+                {/* Accompanying Parents */}
                 <div>
                   <label htmlFor="numberOfGuests" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                    Will you be accompanied by a parent? <span className="text-rose-500" aria-hidden="true">*</span>
+                    Will you be accompanied by parents? <span className="text-rose-500" aria-hidden="true">*</span>
                   </label>
                   <select
                     id="numberOfGuests"
                     {...register('numberOfGuests')}
                     className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600 text-base sm:text-sm bg-white"
                   >
-                    <option value={1}>Yes, with 1 Parent (Mother or Father)</option>
+                    <option value={2}>Yes, with Parents (Mother and Father)</option>
                     <option value={0}>No, Attending Alone (Student Only)</option>
                   </select>
                   <p className="text-xs text-slate-500 mt-1.5">
-                    Note: To ensure seating capacity for all rankers, each student is permitted to bring a maximum of 1 parent (either mother or father).
+                    Note: To ensure seating arrangements for all rankers, please confirm whether you will be attending with both parents (Mother and Father) or alone.
                   </p>
                 </div>
 
@@ -702,9 +702,9 @@ export default function RegisterPage() {
                     <span className="font-bold text-slate-900 text-right">{values.schoolCollege}</span>
                   </div>
                   <div className="flex justify-between py-1">
-                    <span className="text-slate-500 font-medium">Accompanying Parent</span>
+                    <span className="text-slate-500 font-medium">Accompanying Parents</span>
                     <span className="font-bold text-slate-900 text-right">
-                      {Number(values.numberOfGuests) === 1 ? '1 Parent (Mother or Father)' : 'Attending Alone (Student Only)'}
+                      {Number(values.numberOfGuests) > 0 ? 'Yes, with Parents (Mother and Father)' : 'Attending Alone (Student Only)'}
                     </span>
                   </div>
                 </div>

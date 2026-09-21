@@ -22,8 +22,8 @@ const registrationSchema = z.object({
   exam: z.string().optional(),
   rank: z.union([z.string(), z.number()]).optional().default('Selected'),
   schoolCollege: z.string().min(2, 'schoolCollege is required'),
-  guestCount: z.coerce.number().int().min(0).max(1).optional(),
-  numberOfGuests: z.coerce.number().int().min(0).max(1).optional(),
+  guestCount: z.coerce.number().int().min(0).max(2).optional(),
+  numberOfGuests: z.coerce.number().int().min(0).max(2).optional(),
   additionalInfo: z.string().optional().default(''),
 }).refine((data) => data.mobile || data.mobileNumber, {
   message: 'mobile number is required',
